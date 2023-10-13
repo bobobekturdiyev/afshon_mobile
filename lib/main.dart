@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
 void main() async {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: ModelViewScreen(),
     );
   }
 }
@@ -86,14 +87,44 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future addCube(ArCoreController arCoreController,
       ArCoreAugmentedImage augmentedImage) async {
-    final materials = ArCoreMaterial(color: Colors.green, metallic: 1.0);
+    // final materials = ArCoreMaterial(color: Colors.green, metallic: 1.0);
+    //
+    // final cube =
+    //     ArCoreCube(size: vector.Vector3(0.1, 0.1, 0.1), materials: [materials]);
 
-    final cube =
-        ArCoreCube(size: vector.Vector3(0.1, 0.1, 0.1), materials: [materials]);
-
-    final node = ArCoreNode(shape: cube);
+    // final node = ArCoreNode(shape: cube);
+    final node = ArCoreReferenceNode(
+        objectUrl:
+            "https://65294282fcf08434c514843d--sunny-sunburst-b21cdc.netlify.app/assets/tish.glb");
 
     arCoreController.addArCoreNodeToAugmentedImage(node, augmentedImage.index);
     // arCoreController.addArCoreNode(node);
+  }
+}
+
+class ModelViewScreen extends StatefulWidget {
+  const ModelViewScreen({Key? key}) : super(key: key);
+
+  @override
+  State<ModelViewScreen> createState() => _ModelViewScreenState();
+}
+
+class _ModelViewScreenState extends State<ModelViewScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Model Viewer')),
+      body: const ModelViewer(
+        backgroundColor: Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
+        src: 'assets/yurak.glb',
+        alt: 'A 3D model of an astronaut',
+        ar: true,
+        arScale: ArScale.fixed,
+        arPlacement: ArPlacement.floor,
+        autoRotate: true,
+        iosSrc: 'https://modelviewer.dev/shared-assets/models/Astronaut.usdz',
+        disableZoom: true,
+      ),
+    );
   }
 }
