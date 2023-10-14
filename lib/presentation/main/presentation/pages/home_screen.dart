@@ -41,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 context.router.push(const SearchRoute());
               },
               child: Container(
-                margin: const EdgeInsets.only(top: 12),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: AppColors.cardColor,

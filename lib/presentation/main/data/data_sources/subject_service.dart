@@ -1,6 +1,7 @@
 import 'package:afshon_ar/core/network/urls.dart';
 import 'package:afshon_ar/presentation/main/data/models/object_3d_dto.dart';
 import 'package:afshon_ar/presentation/main/data/models/subject_dto.dart';
+import 'package:afshon_ar/presentation/main/domain/entities/search_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -16,4 +17,7 @@ abstract class SubjectService {
   @GET("file-by-subject/{id}")
   Future<HttpResponse<List<Object3Ddto>>> getSubjectObjects(
       {@Path('id') required int subjectId});
+  @POST("file-search")
+  Future<HttpResponse<List<Object3Ddto>>> search(
+      {@Body() required SearchRequest searchRequest});
 }
