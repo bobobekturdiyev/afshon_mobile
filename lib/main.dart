@@ -1,10 +1,8 @@
-import 'dart:typed_data';
-
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
-import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -29,7 +27,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ModelViewScreen(),
+      home: MyHomePage(
+        title: '#D',
+      ),
     );
   }
 }
@@ -54,10 +54,28 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: ArCoreView(
-        onArCoreViewCreated: whenArCoreViewCreated,
-        type: ArCoreViewType.AUGMENTEDIMAGES,
+        onArCoreViewCreated: whenArCoreViewCreated2,
+        // type: ArCoreViewType.AUGMENTEDIMAGES,
+        enableTapRecognizer: true,
       ),
     );
+  }
+
+  void whenArCoreViewCreated2(ArCoreController controller) {
+    arCoreController = controller;
+    arCoreController.onPlaneTap = handleOnTapPlane;
+  }
+
+  void handleOnTapPlane(List<ArCoreHitTestResult> hits) {
+    final hit = hits.first;
+    final node = ArCoreReferenceNode(
+      name: 'tish.glb',
+      object3DFileName: 'tish.glb',
+      position: hit.pose.translation,
+      rotation: hit.pose.rotation,
+    );
+
+    arCoreController.addArCoreNodeWithAnchor(node);
   }
 
   loadSingleImage() async {
@@ -110,10 +128,25 @@ class ModelViewScreen extends StatefulWidget {
 }
 
 class _ModelViewScreenState extends State<ModelViewScreen> {
+  Future<void> _launchARView(String modelUrl) async {
+    final String encodedModelUrl = Uri.encodeComponent(modelUrl);
+    final String arUrl =
+        'https://arvr.google.com/scene-viewer/1.0?file=$encodedModelUrl&mode=ar_preferred';
+
+    if (!await launchUrl(Uri.parse(arUrl))) {
+      print("can not launch");
+    }
+  }
+
+  final String url =
+      "https://modelviewer.dev/shared-assets/models/Astronaut.glb";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Model Viewer')),
+      appBar: AppBar(title: const Text('Model Viewer'), actions: [
+        ElevatedButton(onPressed: () => _launchARView(url), child: Text("OPEN"))
+      ]),
       body: const ModelViewer(
         backgroundColor: Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
         src: 'assets/yurak.glb',
