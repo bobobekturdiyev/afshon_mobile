@@ -1,20 +1,28 @@
 import 'package:afshon_ar/core/resources/app_colors.dart';
 import 'package:afshon_ar/core/resources/styles.dart';
+import 'package:afshon_ar/presentation/main/data/models/subject_dto.dart';
+import 'package:afshon_ar/presentation/objects/presentation/pages/objects_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class WSubject extends StatelessWidget {
-  final GestureTapCallback onTap;
+  final SubjectDto subjectDto;
 
   const WSubject({
     Key? key,
-    required this.onTap,
+    required this.subjectDto,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => const ObjectsScreen(),
+          ),
+        );
+      },
       child: Container(
         padding: const EdgeInsets.all(12),
         constraints: const BoxConstraints(
@@ -35,15 +43,14 @@ class WSubject extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: CachedNetworkImage(
-                imageUrl:
-                    "https://static.vecteezy.com/system/resources/previews/024/044/167/original/happy-panda-clipart-transparent-background-free-png.png",
+                imageUrl: subjectDto.image,
                 width: 16,
                 height: 16,
               ),
             ),
             const SizedBox(height: 24),
             Text(
-              "Anatomiya",
+              subjectDto.title,
               style: Styles.getTextStyle(),
             ),
           ],
