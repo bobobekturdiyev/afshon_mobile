@@ -3,7 +3,7 @@ import 'package:afshon_ar/core/resources/app_icons.dart';
 import 'package:afshon_ar/core/resources/app_toast.dart';
 import 'package:afshon_ar/core/resources/styles.dart';
 import 'package:afshon_ar/presentation/main/presentation/widgets/w_subject.dart';
-import 'package:afshon_ar/presentation/search/presentation/widgets/search_screen.dart';
+import 'package:afshon_ar/routes.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,10 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: AppColors.backgroundColor,
             title: GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const SearchScreen()));
+                context.router.push(const SearchRoute());
               },
               child: Container(
+                margin: const EdgeInsets.only(top: 12),
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   color: AppColors.cardColor,
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisCount: 2,
                       crossAxisSpacing: 12,
                       mainAxisSpacing: 12,
-                      mainAxisExtent: 200,
+                      mainAxisExtent: 160,
                     ),
                     children: List.generate(
                       state.subjects.length,

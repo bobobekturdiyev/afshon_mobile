@@ -10,7 +10,7 @@ ErrorResponse _$ErrorResponseFromJson(Map<String, dynamic> json) =>
     ErrorResponse(
       message: json['message'] as String?,
       error: json['error'] as String?,
-      status: json['status'] as int,
+      status: json['status'] as int?,
     );
 
 Map<String, dynamic> _$ErrorResponseToJson(ErrorResponse instance) =>

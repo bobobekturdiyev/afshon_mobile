@@ -6,12 +6,12 @@ part 'error_response.g.dart';
 class ErrorResponse {
   final String? message;
   final String? error;
-  final int status;
+  final int? status;
 
   const ErrorResponse({
     this.message,
     this.error,
-    required this.status,
+     this.status,
   });
 
   factory ErrorResponse.fromJson(Map<String, dynamic> json) =>

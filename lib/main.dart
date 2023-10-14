@@ -1,6 +1,6 @@
 import 'package:afshon_ar/core/di/injector.dart';
 import 'package:afshon_ar/core/di/locator.dart';
-import 'package:afshon_ar/presentation/main/presentation/pages/home_screen.dart';
+import 'package:afshon_ar/routes.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,23 +11,24 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
 
-  runApp(const Injector(child: MyApp()));
+  runApp(Injector(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final _router = AppRouter();
+
+  MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
+    return MaterialApp.router(
+      title: 'Afshon',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
+      routerConfig: _router.config(),
       themeMode: ThemeMode.dark,
-      home: const HomeScreen(),
     );
   }
 }
