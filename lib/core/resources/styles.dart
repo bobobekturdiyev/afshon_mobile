@@ -13,7 +13,7 @@ abstract class Styles {
       );
 
   static TextStyle getTextStyle({
-    Color color = AppColors.black,
+    Color color = AppColors.white,
     double fontSize = 14,
     FontWeight fontWeight = FontWeight.w400,
     double? letterSpacing,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   //General
-  static const Color primaryColor = Color(0xFF027DFC);
+  static const Color primaryColor = Color(0xFF4D5BF6);
   static const Color primaryColorAccent = Color(0xFFCDDEFC);
   static const Color primaryColorDark = Color(0xFF0059B5);
 
@@ -12,13 +12,13 @@ class AppColors {
   static const Color transparent = Colors.transparent;
 
   static const Color inputColor = Color(0xFFFFFFFF);
-  static const Color backgroundColor = Color(0xFFFFFFFF);
+  static const Color backgroundColor = Color(0xFF151617);
 
   static const Color C999999 = Color(0xFF999999);
   static const Color C_CACACA = Color(0xFFCACACA);
   static const Color C_11253C = Color(0xFF11253C);
 
-  static const Color cardColor = Color(0xFFF8F7FB);
+  static const Color cardColor = Color(0xFF1D1D20);
 
   static const Color danger = Color(0xFFFF4D4D);
   static const Color removeColor = Color(0xFFFF002E);

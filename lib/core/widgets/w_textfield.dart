@@ -66,110 +66,66 @@ class _WTextFieldState extends State<WTextField> {
   bool toggle = false;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (widget.label != null) ...{
-              WLabel(label: widget.label!),
-            } else ...{
-              const SizedBox(),
-            },
-            const SizedBox(width: 12),
-            if (widget.errorText != null) ...{
-              Expanded(
-                child: Text(
-                  widget.errorText!,
-                  style: Styles.getTextStyle(
-                    fontSize: 12,
-                    color: AppColors.danger,
-                    fontWeight: FontWeight.w500,
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-              ),
-            },
-          ],
+    return TextField(
+      autofocus: true,
+      maxLines: widget.maxLines,
+      readOnly: widget.readOnly,
+      textAlign: widget.textAlign,
+      focusNode: widget.focusNode,
+      controller: widget.controller,
+      onSubmitted: widget.onSubmitted,
+      onTapOutside: widget.onTapOutside,
+      style: widget.textStyle ?? Styles.getTextStyle(),
+      obscureText: widget.isObscure && !toggle,
+      maxLength: widget.maxLength,
+      onChanged: widget.onChanged,
+      decoration: InputDecoration(
+        errorText: widget.errorText != null ? "" : null,
+        prefixIcon: widget.prefixIcon,
+        suffixIcon: widget.isObscure
+            ? IconButton(
+                icon: toggle
+                    ? SvgPicture.asset(
+                        AppIcons.removedEye,
+                        width: 24,
+                        height: 24,
+                        colorFilter: const ColorFilter.mode(
+                            AppColors.C999999, BlendMode.srcIn),
+                      )
+                    : SvgPicture.asset(
+                        AppIcons.eye,
+                        width: 24,
+                        height: 24,
+                        colorFilter: const ColorFilter.mode(
+                            AppColors.C999999, BlendMode.srcIn),
+                      ),
+                onPressed: () {
+                  setState(() {
+                    toggle = !toggle;
+                  });
+                },
+              )
+            : widget.suffixIcon,
+        border: getBorder(),
+        enabledBorder: getBorder(),
+        focusedBorder: getBorder(),
+        errorBorder: getBorder(color: AppColors.danger),
+        contentPadding: widget.contentPadding,
+        counterText: "",
+        hintText: widget.hint,
+        hintStyle: Styles.getTextStyle(
+          color: AppColors.C999999,
+          letterSpacing: 1,
+          fontSize: widget.hintFontSize,
         ),
-        Padding(
-          padding: widget.margin,
-          child: TextField(
-            maxLines: widget.maxLines,
-            readOnly: widget.readOnly,
-            textAlign: widget.textAlign,
-            focusNode: widget.focusNode,
-            controller: widget.controller,
-            onSubmitted: widget.onSubmitted,
-            onTapOutside: widget.onTapOutside,
-            style: widget.textStyle ?? Styles.getTextStyle(),
-            obscureText: widget.isObscure && !toggle,
-            maxLength: widget.maxLength,
-            onChanged: widget.onChanged,
-            decoration: InputDecoration(
-              errorText: widget.errorText != null ? "" : null,
-              prefixIcon: widget.prefixIcon,
-              suffixIcon: widget.isObscure
-                  ? IconButton(
-                      icon: toggle
-                          ? SvgPicture.asset(
-                              AppIcons.removedEye,
-                              width: 24,
-                              height: 24,
-                              colorFilter: const ColorFilter.mode(
-                                  AppColors.C999999, BlendMode.srcIn),
-                            )
-                          : SvgPicture.asset(
-                              AppIcons.eye,
-                              width: 24,
-                              height: 24,
-                              colorFilter: const ColorFilter.mode(
-                                  AppColors.C999999, BlendMode.srcIn),
-                            ),
-                      onPressed: () {
-                        setState(() {
-                          toggle = !toggle;
-                        });
-                      },
-                    )
-                  : widget.suffixIcon,
-              filled: true,
-              fillColor: widget.readOnly
-                  ? AppColors.C_CACACA.withOpacity(0.3)
-                  : AppColors.inputColor,
-              border: getBorder(),
-              enabledBorder: getBorder(),
-              focusedBorder: getBorder(),
-              errorBorder: getBorder(color: AppColors.danger),
-              contentPadding: widget.contentPadding,
-              counterText: "",
-              hintText: widget.hint,
-              hintStyle: Styles.getTextStyle(
-                color: AppColors.C999999,
-                letterSpacing: 1,
-                fontSize: widget.hintFontSize,
-              ),
-              errorStyle:
-                  Styles.getTextStyle(fontSize: 8, color: AppColors.danger),
-            ),
-            textInputAction: widget.textInputAction,
-            cursorColor: AppColors.primaryColor,
-            keyboardType: widget.keyboardType,
-            inputFormatters: widget.formatters,
-          ),
-        ),
-        if (widget.label != null) ...{
-          const SizedBox(height: 12),
-        }
-      ],
+        errorStyle: Styles.getTextStyle(fontSize: 8, color: AppColors.danger),
+      ),
+      textInputAction: widget.textInputAction,
+      cursorColor: AppColors.primaryColor,
+      keyboardType: widget.keyboardType,
+      inputFormatters: widget.formatters,
     );
   }
 
-  getBorder({Color? color}) => OutlineInputBorder(
-        gapPadding: 0,
-        borderSide: BorderSide(color: color ?? AppColors.C_CACACA, width: 1),
-        borderRadius: BorderRadius.circular(10),
-      );
+  getBorder({Color? color}) => InputBorder.none;
 }

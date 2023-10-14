@@ -1,3 +1,4 @@
+import 'package:afshon_ar/presentation/main/presentation/pages/home_screen.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,11 +7,11 @@ import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  print("AR Core is Available?");
-  print(await ArCoreController.checkArCoreAvailability());
-  print("\n AR Services Installed?");
-  print(await ArCoreController.checkIsArCoreInstalled());
+  //
+  // print("AR Core is Available?");
+  // print(await ArCoreController.checkArCoreAvailability());
+  // print("\n AR Services Installed?");
+  // print(await ArCoreController.checkIsArCoreInstalled());
 
   runApp(const MyApp());
 }
@@ -27,9 +28,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: MyHomePage(
-        title: '#D',
-      ),
+      themeMode: ThemeMode.dark,
+      home: const HomeScreen(),
     );
   }
 }
