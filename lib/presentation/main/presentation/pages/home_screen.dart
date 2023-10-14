@@ -2,6 +2,7 @@ import 'package:afshon_ar/core/resources/app_colors.dart';
 import 'package:afshon_ar/core/resources/app_icons.dart';
 import 'package:afshon_ar/core/resources/styles.dart';
 import 'package:afshon_ar/presentation/main/presentation/widgets/w_subject.dart';
+import 'package:afshon_ar/presentation/objects/presentation/pages/objects_screen.dart';
 import 'package:afshon_ar/presentation/search/presentation/widgets/search_screen.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -57,7 +58,13 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisCount: 2, crossAxisSpacing: 12, mainAxisSpacing: 12),
           children: List.generate(
             6,
-            (index) => const WSubject(),
+            (index) => WSubject(onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => ObjectsScreen(),
+                ),
+              );
+            }),
           ),
         ),
       ),
