@@ -1,11 +1,14 @@
-heart
-ear
-eyes
-bone
-skull
-cat
-chicken
-cow
-hand
-dog
-foot
+0 heart
+1 ear
+2 eyes
+3 bone
+4 skull
+5 cat
+6 chicken
+7 cow
+8 hand
+9 dog
+10 foot
+11 embryo
+12 brain
+13 giraffe
