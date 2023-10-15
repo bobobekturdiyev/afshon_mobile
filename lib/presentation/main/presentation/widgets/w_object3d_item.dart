@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class WObject3DItem extends StatelessWidget {
   final Object3Ddto object3ddto;
+
   const WObject3DItem({
     Key? key,
     required this.object3ddto,
@@ -18,6 +19,7 @@ class WObject3DItem extends StatelessWidget {
       onTap: () => _launchARView(context, object3ddto.url),
       child: ListTile(
         leading: Container(
+          clipBehavior: Clip.hardEdge,
           width: 40,
           height: 40,
           decoration: const BoxDecoration(

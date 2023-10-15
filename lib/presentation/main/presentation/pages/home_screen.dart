@@ -1,10 +1,10 @@
-import 'package:afshon_ar/core/resources/app_colors.dart';
-import 'package:afshon_ar/core/resources/app_icons.dart';
-import 'package:afshon_ar/core/resources/app_toast.dart';
-import 'package:afshon_ar/core/resources/styles.dart';
-import 'package:afshon_ar/core/widgets/w_bottomsheet.dart';
-import 'package:afshon_ar/presentation/main/presentation/widgets/w_subject.dart';
-import 'package:afshon_ar/routes.gr.dart';
+import '/core/resources/app_colors.dart';
+import '/core/resources/app_icons.dart';
+import '/core/resources/app_toast.dart';
+import '/core/resources/styles.dart';
+import '/core/widgets/w_bottomsheet.dart';
+import '/presentation/main/presentation/widgets/w_subject.dart';
+import '/routes.gr.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -113,7 +113,10 @@ class _HomeScreenState extends State<HomeScreen> {
             create: (context) => SearchBloc(subjectRepo: context.read()),
             child: Builder(builder: (context) {
               return BlocListener<SearchBloc, SearchState>(
-                listener: (context, state) {
+                listener: (context, state) async {
+                  if (state is LoadedSearch || state is ErrorSearch) {
+                    await context.router.pop();
+                  }
                   if (state is LoadingSearch) {
                     showDialog(
                       context: context,
@@ -132,25 +135,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     );
                   }
-                  if (state is LoadedSearch || state is ErrorSearch) {
-                    context.router.pop();
-                  }
+
                   if (state is LoadedSearch && state.objects.isNotEmpty) {
                     if (state.objects.length == 1) {
                       _launchARView(context, state.objects.first.url);
                     } else {
                       showModalBottomSheet(
+                        isScrollControlled: true,
                         context: context,
                         builder: (context) => WBottomSheet(
                           title: 'Choose from options',
-                          body: ListView.separated(
-                            separatorBuilder: (_, index) => const Divider(
-                              color: Color(0xFF4D4D4D),
-                              height: 1,
-                            ),
-                            itemBuilder: (_, index) => WObject3DItem(
-                                object3ddto: state.objects[index]),
-                            itemCount: state.objects.length,
+                          body: ListView(
+                            padding: EdgeInsets.only(bottom: 38),
+                            shrinkWrap: true,
+                            children: state.objects
+                                .map((e) => WObject3DItem(object3ddto: e))
+                                .toList(),
                           ),
                         ),
                       );
@@ -175,7 +175,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                     final value = recognitions?.firstOrNull;
                     if (value != null) {
-                      final label = value['label'];
+                      String? label = value['label'].toString();
+                      final index = label.indexOf(' ');
+                      label = label.substring(index + 1, label.length);
                       context.read<SearchBloc>().add(SearchText(text: label));
                     }
                   },
@@ -206,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> loadModel() async {
     String? res = await Tflite.loadModel(
-      model: "assets/mobilenet.tflite",
+      model: "assets/model_unquant.tflite",
       labels: "assets/labels.txt",
       numThreads: 1,
       isAsset: true,

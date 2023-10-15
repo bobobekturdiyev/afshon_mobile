@@ -23,10 +23,10 @@ class WBottomSheet extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 32),
           decoration: const BoxDecoration(
-            color: AppColors.white,
+            color: AppColors.cardColor,
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(32),
-              topLeft: Radius.circular(32),
+              topRight: Radius.circular(24),
+              topLeft: Radius.circular(24),
             ),
           ),
           child: Column(
@@ -45,7 +45,7 @@ class WBottomSheet extends StatelessWidget {
                         title,
                         style: Styles.getTextStyle(
                           fontSize: 20,
-                          color: AppColors.black,
+                          color: AppColors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       )
