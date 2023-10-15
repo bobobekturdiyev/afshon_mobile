@@ -4,7 +4,11 @@ import 'package:afshon_ar/presentation/main/data/models/subject_dto.dart';
 
 abstract class SubjectRepo {
   Future<DataState<List<SubjectDto>>> getSubjects();
+
   Future<DataState<List<Object3Ddto>>> getSubjectObjects(
       {required int subjectId});
+
   Future<DataState<List<Object3Ddto>>> search({required String text});
+
+  Future<DataState<bool>> read({required int id});
 }

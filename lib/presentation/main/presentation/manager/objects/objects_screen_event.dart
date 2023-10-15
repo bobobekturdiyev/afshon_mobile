@@ -11,3 +11,11 @@ class LoadSubjectObjects extends ObjectsScreenEvent {
   @override
   List<Object?> get props => [subjectId];
 }
+
+class ObjectRead extends ObjectsScreenEvent {
+  final int objectId;
+
+  const ObjectRead({required this.objectId});
+  @override
+  List<Object?> get props => [objectId];
+}

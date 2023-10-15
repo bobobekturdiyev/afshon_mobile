@@ -1,8 +1,10 @@
-import 'package:afshon_ar/core/resources/app_toast.dart';
-import 'package:afshon_ar/core/resources/styles.dart';
-import 'package:afshon_ar/presentation/main/data/models/object_3d_dto.dart';
+import '/core/resources/app_toast.dart';
+import '/core/resources/styles.dart';
+import '/presentation/main/data/models/object_3d_dto.dart';
+import '/presentation/main/presentation/manager/objects/objects_screen_bloc.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class WObject3DItem extends StatelessWidget {
@@ -16,7 +18,7 @@ class WObject3DItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => _launchARView(context, object3ddto.url),
+      onTap: () => _launchARView(context, object3ddto),
       child: ListTile(
         leading: Container(
           clipBehavior: Clip.hardEdge,
@@ -45,11 +47,11 @@ class WObject3DItem extends StatelessWidget {
     );
   }
 
-  Future<void> _launchARView(BuildContext context, String modelUrl) async {
-    final String encodedModelUrl = Uri.encodeComponent(modelUrl);
+  Future<void> _launchARView(BuildContext context, Object3Ddto model) async {
+    final String encodedModelUrl = Uri.encodeComponent(model.url);
     final String arUrl =
         'https://arvr.google.com/scene-viewer/1.0?file=$encodedModelUrl&mode=ar_preferred';
-
+    context.read<ObjectsScreenBloc>().add(ObjectRead(objectId: model.id));
     if (!await launchUrl(Uri.parse(arUrl))) {
       AppToast.show(context: context, message: "Cannot launch the model");
     }

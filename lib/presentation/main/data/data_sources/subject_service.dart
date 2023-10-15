@@ -17,7 +17,11 @@ abstract class SubjectService {
   @GET("file-by-subject/{id}")
   Future<HttpResponse<List<Object3Ddto>>> getSubjectObjects(
       {@Path('id') required int subjectId});
+
   @POST("file-search")
   Future<HttpResponse<List<Object3Ddto>>> search(
       {@Body() required SearchRequest searchRequest});
+
+  @POST("read/{id}")
+  Future<HttpResponse<bool>> read({@Path('id') required int objectId});
 }

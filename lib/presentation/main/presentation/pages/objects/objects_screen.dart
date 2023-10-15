@@ -1,9 +1,9 @@
-import 'package:afshon_ar/core/resources/app_colors.dart';
-import 'package:afshon_ar/core/resources/app_icons.dart';
-import 'package:afshon_ar/core/resources/styles.dart';
-import 'package:afshon_ar/presentation/main/data/models/subject_dto.dart';
-import 'package:afshon_ar/presentation/main/presentation/manager/objects/objects_screen_bloc.dart';
-import 'package:afshon_ar/presentation/main/presentation/widgets/w_object3d_item.dart';
+import '/core/resources/app_colors.dart';
+import '/core/resources/app_icons.dart';
+import '/core/resources/styles.dart';
+import '/presentation/main/data/models/subject_dto.dart';
+import '/presentation/main/presentation/manager/objects/objects_screen_bloc.dart';
+import '/presentation/main/presentation/widgets/w_object3d_item.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

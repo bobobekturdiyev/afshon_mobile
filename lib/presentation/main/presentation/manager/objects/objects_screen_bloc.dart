@@ -1,11 +1,11 @@
-import 'package:afshon_ar/core/resources/data_state.dart';
-import 'package:afshon_ar/presentation/main/data/models/object_3d_dto.dart';
+import '/core/resources/data_state.dart';
+import '/presentation/main/data/models/object_3d_dto.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../domain/repositories/subject_repo.dart';
 
 part 'objects_screen_event.dart';
+
 part 'objects_screen_state.dart';
 
 class ObjectsScreenBloc extends Bloc<ObjectsScreenEvent, ObjectsScreenState> {
@@ -31,6 +31,9 @@ class ObjectsScreenBloc extends Bloc<ObjectsScreenEvent, ObjectsScreenState> {
         final errorMessage = result.errorResponse?.message;
         emit(ErrorObject(message: errorMessage ?? ""));
       }
+    });
+    on<ObjectRead>((event, emit) async {
+      final result = await subjectRepo.read(id: event.objectId);
     });
     add(LoadSubjectObjects(subjectId: subjectId));
   }

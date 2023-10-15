@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:afshon_ar/core/resources/app_colors.dart';
 import 'package:afshon_ar/core/resources/styles.dart';
 import 'package:afshon_ar/presentation/main/data/models/subject_dto.dart';
@@ -54,6 +56,32 @@ class WSubject extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              height: 6,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
+                color: AppColors.backgroundColor,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: Random().nextInt(8),
+                    child: Container(
+                      height: 6,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: Random().nextInt(5),
+                    child: const SizedBox(),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),

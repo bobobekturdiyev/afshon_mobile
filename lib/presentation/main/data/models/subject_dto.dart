@@ -7,11 +7,15 @@ class SubjectDto {
   final int id;
   final String title;
   final String image;
+  final int views;
+  final int total;
 
   const SubjectDto({
     required this.id,
     required this.title,
     required this.image,
+    this.total = 5,
+    this.views = 0,
   });
 
   factory SubjectDto.fromJson(Map<String, dynamic> json) =>
