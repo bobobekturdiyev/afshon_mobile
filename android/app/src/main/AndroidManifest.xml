@@ -4,7 +4,7 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="afshon_ar"
+        android:label="Afshon AR"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
